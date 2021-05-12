@@ -1,0 +1,1162 @@
+/* FontAwesome CDN 4.7 */
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600&display=swap');
+@import 'mixin';
+/*------------------------- breackpoints ---------------------------*/
+$desktop: 1023px;
+$tablet: 768px;
+$mobile: 479px;
+/*------------------------- common ---------------------------*/
+$black: #000;
+$white: #fff;
+$transition: .35s;
+$bgc01: #7204d0;
+$bgc02: #a040f1;
+*{box-sizing: border-box;}
+body{
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+  color: $black;
+}
+ul{
+  list-style: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+}
+li{text-decoration: none;}
+button{
+  outline: none;
+  cursor: pointer;
+}
+.content{
+  width: 100%;
+  margin: 100px 0;
+  @include responsive(tab-port){margin: 60px 0;}
+  @include responsive(mobile){margin: 60px 0;}
+}
+p{
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+label{margin: 0;}
+//include
+//전체 가로 비율 가운데 맞추기
+%m0auto_90{
+  width: 90%;
+  margin: 0 auto;
+}
+%m0auto_80{
+  width: 80%;
+  margin: 0 auto;
+}
+%m0auto_70{
+  width: 70%;
+  margin: 0 auto;
+}
+%uppercase{
+  text-transform: uppercase;
+}
+
+//mixin
+@mixin background{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+@mixin bx($w, $h){
+  width: $w;
+  height: $h;
+}
+@mixin display($position, $j, $a){
+  display: $position;
+  justify-content: $j;
+  align-items: $a;
+}
+@mixin position($x, $y, $z){
+  position: absolute;
+  left: $x;
+  top: $y;
+  z-index: $z;
+  @if $x == 50% and y == 50%{
+    transform: translate(-50%, -50%);
+  }@else if $x == 50%{
+    transform: translateX(-50%);
+  }@else if $y == 50%{
+    transform: translateY(-50%);
+  }
+}
+@mixin clear{
+  &::after{
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+@mixin before{
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+@mixin title{
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+/*------------------------- header ---------------------------*/
+header{
+  width: 100%;
+  background: $white;
+  box-shadow: 3px 3px 20px rgba(0,0,0,0.25);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  .header-inner{
+    @extend %m0auto_90;
+    @include display(flex, space-between, center);
+    overflow: hidden;
+    position: relative;
+    @include responsive(tab-land){width: 90%;}
+    @include responsive(tab-port){width: 90%;}
+    @include responsive(mobile){width: 90%;}
+    .logo{
+      width: 150px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%); 
+      @include responsive(tab-land){width: 120px;}
+      @include responsive(tab-port){width: 120px;}
+      @include responsive(mobile){width: 120px;}
+      a{display: block;
+        img{width: 100%;}
+      }
+    }
+    .header-left,
+    .header-right{
+      @include display(flex, center, flex-end);
+      @extend %uppercase;
+      @include responsive(tab-port){display: none;}
+      @include responsive(mobile){display: none;}
+      li{
+        color: #333;
+        @include title;
+        font-size: 0.8rem;
+        &:not(:last-child){
+          margin-right: 20px;
+          // @include responsive(tab-land){margin-right: 10px;}
+        }
+      }
+    }
+    .header-right{margin-right: 20px;}
+    .right{
+      @include display(flex, center, center);
+      margin-right: -120px;
+      transition: margin-right $transition;
+      @include responsive(tab-port){margin-right: 0;}
+      @include responsive(mobile){margin-right: 0;}
+      /*---------- bars ---------*/
+      .bars{
+        input[id="menuicon"]{display: none;}
+        input[id="menuicon"] + label{
+          display: block;
+          margin: 30px;
+          width: 25px;
+          height: 20px;
+          position: relative;
+          @include responsive(tab-land){
+            height: 20px;
+            width: 25px;
+          }
+          @include responsive(mobile){
+            height: 15px;
+            width: 20px;
+          }
+          cursor: pointer;
+          span{
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            border-radius: 30px;
+            background-color: #000;
+            transition: all 0.35s;
+            cursor: pointer;
+            &:nth-child(1){top: 0;}
+            &:nth-child(2){
+              top: 50%;
+              transform: translateY(-50%);
+            }
+            &:nth-child(3){bottom: 0;}
+          }
+        }
+        input[id="menuicon"]:checked + label{
+          z-index: 2;
+          span{
+            background-color: #000;
+            &:nth-child(1){
+              top: 50%;
+              transform: translateY(-50%) rotate(45deg);
+            }
+            &:nth-child(2){opacity: 0;}
+            &:nth-child(3){
+              bottom: 50%;
+              transform: translateY(50%) rotate(-45deg);
+            }
+          }
+        }
+        input[id="menuicon"]:checked + label + div{
+          height: 40px;
+          li{display: block;}
+        }
+        div[class="slider"]{
+          width: 100%;
+          height: 0;
+          // height: 40px;
+          transition: height $transition;
+          background: $bgc01;
+          position: fixed;
+          top: 80px;
+          left: 0;
+          transition: all .35s;
+          @include responsive(tab-land){top: 80px;}
+          @include responsive(mobile){top: 75px;}
+          ul{
+            @extend %m0auto_70;
+            height: 100%;
+            @include display(flex, space-around, center);
+            @include responsive(mobile){width: 90%;}
+            li{
+              color: $white;
+              font-weight: bold;
+              font-size: 14px;
+              cursor: pointer;
+              display: none;
+              transition: $transition;
+              @include responsive(mobile){font-size: 0.8rem;}
+            }
+          }
+        }
+      }
+      .sing-up{
+        width: 120px;
+        height: 50px;
+        border-radius: 5px;
+        border: none;
+        background: $bgc02;
+        color: $white;
+        font-weight: bold;
+        @include responsive(tab-land){
+          width: 100px;
+          height: 30px;
+        }
+        @include responsive(tab-port){display: none;}
+        @include responsive(mobile){display: none;}
+        &:hover{background: $bgc01;}
+      }
+    }
+  }
+}
+/*------------------------- main-slider ---------------------------*/
+.main-slider{
+  margin-top: 0;
+  .main-slider-inner{
+    @extend %m0auto_70;
+    @include clear;
+    border: 1px solid #eee;
+    @include responsive(tab-land){width: 90%;}
+    @include responsive(tab-port){width: 100%;}
+    @include responsive(mobile){
+      width: 100%;
+      position: relative;
+    }
+    > div{float: left;}
+    .slider-left{
+      width: 70%;
+      overflow: hidden;
+      position: relative;
+      @include responsive(mobile){width: 100%;}
+      .slider-container{
+        width: 100%;
+        position: absolute;
+        left: 0;
+        .slide{
+          position: absolute;
+          width: 100%;
+          height: 400px;
+          img{
+            width: 100%;
+            height: 100%;
+          }
+          @include responsive(tab-land){height: 300px;}
+          @include responsive(tab-port){height: 300px;}
+          @include responsive(mobile){height: 250px;}
+        }
+      &.animated{transition: left $transition ease-in;}
+      }
+      .btn-group{
+        position: absolute;
+        left: 0;
+        display: flex;
+        bottom: 0;
+        @include responsive(mobile){display: none;}
+        a{
+          width: 50px;
+          height: 50px;
+          background: $bgc01;
+          display: block;
+          text-align: center;
+          font-weight: bold;
+          line-height: 50px;
+          color: $white;
+          &:hover{background: $bgc02;}
+          @include responsive(tab-port){
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+          }
+        }
+      }
+    }
+    .slider-right{
+      width: 30%;
+      height: 400px;
+      position: relative;
+      @include responsive(tab-land){height: 300px;}
+      @include responsive(tab-port){height: 300px;}
+      @include responsive(mobile){
+        width: 100%;
+        height: 250px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .pager{
+        position: absolute;
+        right: 0; top: 0;
+        z-index: 99;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        span{
+          width: 40px;
+          height: 30px;
+          text-indent: -9999em;
+          border-radius: 0 0 5px 5px;
+          &.active{height: 50px;}
+          &:nth-child(1){background: #f6b37f;}
+          &:nth-child(2){background: #f683f5;}
+          &:nth-child(3){background: #e3cc07;}
+          &:nth-child(4){background: #1383b2;}
+          cursor: pointer;
+          @include responsive(mobile){
+            width: 30px;
+            height: 20px;
+            &.active{height: 40px;}
+          }
+        }
+      }
+      .right-title{
+        width: 100%;
+        height: 100%;
+        position: relative;
+        @include responsive(mobile){display: none;}
+        p{
+          font-size: 1.5rem;
+          width: 70%;
+          position: absolute;
+          top: 50%; left: 55%;
+          transform: translate(-50%, -55%);
+          text-align: right;
+          line-height: 40px;
+          @include title;
+          @include responsive(tab-land){
+            font-size: 1rem;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          @include responsive(tab-port){
+            font-size: 1rem;
+            line-height: 30px;
+          }
+        }
+      }
+    }
+  }
+}
+/*------------------------- contest ---------------------------*/
+.contest{
+  .contest-inner{
+    @extend %m0auto_70;
+    @include responsive(tab-land){width: 90%;}
+    @include responsive(tab-port){width: 90%;}
+    @include responsive(mobile){width: 90%;}
+    .header{
+      box-shadow: none;
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0;
+      > div{width: 45%;}
+      .header-main-title{
+        @include responsive(mobile){width: 100%;}
+        h3{
+          margin: 0;
+          color: $black;
+          @include title;
+          @include responsive(tab-port){font-size: 1rem;}
+          @include responsive(mobile){font-size: 1rem;}
+        }
+        p{
+          margin-top: 20px;
+          font-size: 0.8rem;
+          @include responsive(tab-port){
+            margin-top: 10px;
+            font-size: 0.6rem;
+          }
+          @include responsive(mobile){
+            margin-top: 10px;
+            font-size: 0.6rem;
+          }
+        }
+      }
+      .header-sub-title{
+        text-align: right;
+        font-size: 0.8rem;
+        @include responsive(tab-port){font-size: 0.6rem;}
+        @include responsive(mobile){display: none;}
+      }
+    }
+    .wrapper{
+      width: 100%;
+      .carousel{
+        max-width: 100%;
+        margin: auto;
+        .contest-slide{
+          position: relative;
+          height: 280px;
+          text-align: center;
+          font-size: 36px;
+          margin: 10px;
+          box-shadow: 2px 0px 15px rgba(0,0,0,0.2);
+          @include responsive(tab-land){height: 250px;}
+          @include responsive(tab-port){height: 250px;}
+          &::after{
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.35);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: .3s ease;
+          }
+          &::before{
+            content: 'read more +';
+            display: block;
+            width: 150px;
+            height: 50px;
+            border: 2px solid $white;
+            font-size: 0.8rem;
+            line-height: 50px;
+            color: $white;
+            @extend %uppercase;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: 0;
+            transition: .3s ease;
+            @include responsive(tab-land){
+              height: 40px;
+              width: 120px;
+              line-height: 40px;
+            }
+            @include responsive(tab-port){
+              height: 40px;
+              width: 120px;
+              line-height: 40px;
+            }
+          }
+          &:hover::after,
+          &:hover::before{opacity: 1;}
+          img{
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+    /*section{
+      margin-top: 40px;
+      width: 100%;
+      position: relative;
+      @include responsive(tab-port){margin-top: 20px;}
+      @include responsive(mobile){margin-top: 20px;}
+      .contest-slide{
+        width: 1100px;
+        height: 300px;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+        .slides{
+          position: absolute;
+    	    left:0; top:0;	
+          position: relative;
+          &.animated{transition: .5s ease-out;}
+          li{
+            width: 350px;
+            height: 300px;
+            float: left;
+            position: relative;
+            transition: $transition;
+            &:not(:last-child){margin-right: 30px;}
+            &:hover::after, &:hover::before{opacity: 1;}
+            &::after{
+              content: '';
+              width: 100%;
+              height: 100%;
+              display: block;
+              background: rgba(0,0,0,0.4);
+              position: absolute;
+              top: 0; left: 0;
+              opacity: 0;
+            }
+            &::before{
+              @extend %uppercase;
+              content: 'read more +';
+              padding: 10px 20px;
+              font-size: 0.8rem;
+              color: $white;
+              display: block;
+              position: absolute;
+              top: 50%; left: 50%;
+              z-index: 10;
+              transform: translate(-50%, -50%);
+              border: 1px solid $white;
+              cursor: pointer;
+              opacity: 0;
+            }
+            img{
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+      .controls{
+        width: 100%;
+        margin: 0 auto;
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        span{
+          @include title;
+          @extend %uppercase;
+          font-size: 0.8rem;
+          display: block;
+          padding: 10px 30px;
+          color: $white;
+          cursor: pointer;
+          background: $bgc01;
+          &:hover{background: $bgc02;}
+          @include responsive(tab-port){
+            padding: 5px 20px;
+            font-size: 0.6rem;
+          }
+          @include responsive(mobile){
+            padding: 5px 20px;
+            font-size: 0.6rem;
+          }
+        }
+      }
+    }*/
+  }
+}
+.owl-dots{
+  text-align: center;
+  margin-top: 20px;
+}
+.owl-dot{
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+  margin: 0 5px;
+  border: 1px solid $bgc01!important;
+  transition: all 0.3s eases;
+  &.active{background: $bgc01!important;}
+}
+.owl-dot:hover,
+.owl-dot:active{
+  background: $bgc01!important;
+}
+/*------------------------- attachment-right ---------------------------*/
+.attachment-right{
+  background: url(../images/attachment-background01.jpg) center center/ cover;
+  background-attachment: fixed;
+  position: relative;
+  &::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 350px;
+    background-color: rgba(0,0,0,0.35);
+    position: absolute;
+    top: 0;
+  }
+  .attachment-right-inner{
+    position: relative;
+    z-index: 99;
+    @extend %m0auto_70;
+    text-align: right;
+    position: relative;
+    height: 350px;
+    @include responsive(tab-land){width: 90%;}
+    @include responsive(tab-port){width: 90%;}
+    @include responsive(mobile){width: 90%;}
+    *{color: $white;}
+    .segment{
+      width: 70%;
+      position: absolute;
+      right: 0; top: 50%;
+      transform: translateY(-50%);
+      @include responsive(tab-port){width: 80%;}
+      @include responsive(mobile){width: 90%;}
+      h3{
+        @include title;
+        @include responsive(tab-port){font-size: 1rem;}
+        @include responsive(mobile){font-size: 1rem;}
+      }
+      p{
+        margin-top: 20px;
+        @include responsive(tab-port){font-size: 0.8rem;}
+        @include responsive(mobile){
+          font-size: 0.8rem;
+          margin-top: 10px;
+        }
+      }
+      button{
+        @extend %uppercase;
+        margin-top: 20px;
+        width: 150px;
+        height: 50px;
+        background-color: inherit;
+        border: 1px solid $white;
+        font-weight: bold;
+        transition: $transition;
+        transform: scale(1);
+        &:hover{
+          background-color: $black;
+          border: none;
+        }
+        &:active{transform: scale(0.8);}
+        @include responsive(tab-port){
+          width: 120px;
+          height: 50px;
+          font-size: 0.8rem;
+        }
+        @include responsive(mobile){display: none}
+      }
+    }
+  }
+}
+/*------------------------- tabs ---------------------------*/
+.tabs{
+  .tabs-inner{
+    @extend %m0auto_70;
+    @include responsive(tab-land){width: 90%;}
+    @include responsive(tab-port){width: 90%;}
+    @include responsive(mobile){
+      width: 100%;
+      padding: 10px;
+    }
+    display: flex;
+    justify-content: space-between;
+    > div{
+      width: calc(50% - 20px);
+      @include responsive(tab-land){width: 50%;}
+      @include responsive(tab-port){width: 50%;}
+      @include responsive(mobile){width: 100%;}
+    }
+    .tabs-wrapper{
+      background: url(../images/controls.jpg) no-repeat center center/ cover;
+      height: 450px;
+      @include responsive(tab-land){
+        height: 400px;
+        background-color: rgba(102,0,204,0.2);
+        background-size: contain;
+      }
+      @include responsive(tab-port){
+        height: 400px;
+        background-color: rgba(102,0,204,0.2);
+        background-size: contain;
+      }
+      @include responsive(mobile){display: none;}
+      position: relative;
+      .tabs-menu{
+        width: 100px;
+        position: absolute;
+        right: 10px; top: 10px;
+        li{
+          // width: 100%;
+          border-radius: 10px;
+          text-align: center;
+          background: #eee;
+          margin: 5px 0;
+          a{
+            &.active{
+              background: $black;
+              color: $white;
+            }
+            padding: 5px 0; 
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            display: block;
+            color: $black;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    .tabs-content{  
+      @include responsive(tab-land){border: 3px solid rgba(102,0,204,0.2);}
+      @include responsive(tab-port){border: 3px solid rgba(102,0,204,0.2);}
+      > div{
+        padding: 10px 0;
+        display: none;
+        @include responsive(tab-land){padding: 10px;}
+        @include responsive(tab-port){padding: 10px;}
+        @include responsive(mobile){
+          padding: 0;
+          display: block;
+          &:not(:first-child) h3{display: none;}
+          &:not(:first-child) .tabs-segment{margin-top: 0;}
+          &:first-child .tabs-segment{margin-top: 40px;}
+        }
+      }
+      img{
+        width: 80px;
+        height: 60px;
+        @include responsive(mobile){display: none;}
+      }
+      .tabs-title{
+        display: inline-block;
+        margin-left: 20px;
+        @include responsive(tab-land){
+          margin-left: 10px;
+          margin-top: 20px;
+        }
+        @include responsive(tab-port){
+          margin-left: 0;
+          margin-top: 20px;
+        }
+        @include responsive(mobile){
+          margin-left: 0;
+          width: 100%;
+          text-align: center;
+        }
+        h3{
+          margin: 0;
+          color: #555;
+          @include responsive(tab-land){font-size: 1rem;}
+          @include responsive(tab-port){font-size: 1rem;}
+          @include responsive(mobile){
+            @include title;
+            font-size: 1rem;
+          }
+        }
+        h1{
+          margin-top: 20px;
+          @include responsive(tab-land){
+            font-size: 1.2rem;
+            margin-top: 10px;
+          }
+          @include responsive(tab-port){
+            font-size: 1.2rem;
+            margin-top: 10px;
+          }
+          @include responsive(mobile){display: none;}
+        }
+      }
+      .tabs-segment{
+        margin-top: 20px;
+        width: 100%;
+        @include responsive(mobile){text-align: center;}
+        a{
+          display: inline-block;
+          height: 100%;
+          width: calc(100% / 2 - 60px);
+          @include responsive(tab-land){width: calc(100% / 2 - 20px);}
+          @include responsive(tab-port){width: calc(100% / 2 - 20px);}
+          &:last-child{margin-left: 20px;}
+          img{
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+/*------------------------- attachment-right ---------------------------*/
+.attachment-left{
+  background: url(../images/attachment-background02.jpg) center center/ cover;
+  background-attachment: fixed;
+  position: relative;
+  &::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 350px;
+    background-color: rgba(0,0,0,0.35);
+    position: absolute;
+    top: 0;
+  }
+  .attachment-left-inner{
+      @extend %m0auto_70;
+      height: 350px;
+      position: relative;
+      @include responsive(tab-land){width: 90%;}
+      @include responsive(tab-port){width: 90%;}
+      @include responsive(mobile){width: 90%;}
+      *{color: $white;}
+      .segment{
+        width: 70%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        z-index: 99;
+        @include responsive(tab-port){width: 80%;}
+        @include responsive(mobile){width: 90%;}
+        h3{
+          @include title;
+          @include responsive(tab-port){font-size: 1rem;}
+          @include responsive(mobile){font-size: 1rem;}
+        }
+        p{
+          margin-top: 20px;
+          @include responsive(tab-port){font-size: 0.8rem;}
+          @include responsive(mobile){
+            font-size: 0.8rem;
+            margin-top: 10px;
+          }
+        }
+        button{
+          @extend %uppercase;
+          margin-top: 20px;
+          width: 150px;
+          height: 50px;
+          background-color: inherit;
+          border: 1px solid $white;
+          font-weight: bold;
+          transition: $transition;
+          transform: scale(1);
+          &:hover{
+            background-color: $black;
+            border: none;
+          }
+          &:active{transform: scale(0.8);}
+          @include responsive(tab-port){
+            width: 120px;
+            height: 50px;
+            font-size: 0.8rem;
+          }
+          @include responsive(mobile){display: none}
+        }
+      }
+  }
+}
+/*------------------------- preview ---------------------------*/
+.preview{
+  .preview-inner{
+    @extend %m0auto_70;
+    height: 800px;
+    position: relative;
+    @include responsive(tab-land){
+      width: 90%;
+      height: 700px;
+    }
+    @include responsive(tab-port){
+      width: 100%;
+      height: 600px;
+    }
+    @include responsive(mobile){
+      width: 100%;
+      height: 360px;
+    }
+    &::after{
+      content: '';
+      display: block;
+      width: 20%;
+      height: 40%;
+      position: absolute;
+      top: 0; left: 0;
+      z-index: 1;
+      background: url(../images/preview-after.png) center center/ cover;
+      @include responsive(tab-port){
+        width: 10%;
+        height: 30%;
+      }
+      @include responsive(mobile){display: none;}
+    }
+    &::before{
+      content: '';
+      display: block;
+      width: 40%;
+      height: 300px;
+      background: url(../images/preview-before.png) center center/ cover;
+      position: absolute;
+      right: 0; top: 50%;
+      transform: translateY(-20%);
+      @include responsive(tab-port){
+        width: 50%;
+        height: 250px;
+      }
+      @include responsive(mobile){display: none;}
+    }
+    .preview-images{
+      @extend %m0auto_70;
+      z-index: 10;
+      position: relative;
+      height: 550px;
+      @include responsive(tab-land){
+        width: 80%;
+        height: 500px;
+      }
+      @include responsive(tab-port){
+        width: 90%;
+        height: 450px;
+      }
+      @include responsive(mobile){
+        width: 100%;
+        height: 300px;
+      }
+      > div{
+        width: 100%;
+        height: 100%;
+        background-color: #ccc;
+        position: absolute;
+        display: none;
+        &.view{display: block;}
+        // @include responsive(tab-land){height: 500px;}
+      }
+    }
+    .preview-tabs{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      @include responsive(tab-port){
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      @include responsive(mobile){justify-content: space-around;}
+      li{
+        width: calc(100% / 4 - 20px);
+        height: 180px;
+        @include background;
+        &:nth-child(1){background: url(../images/preview01-desktop.jpg);}
+        &:nth-child(2){background: url(../images/preview02-desktop.jpg);}
+        &:nth-child(3){background: url(../images/preview03-desktop.jpg);}
+        &:nth-child(4){background: url(../images/preview04-desktop.jpg);}
+        @include responsive(tab-land){
+          width: calc(100% / 4 - 10px);
+          height: 150px;
+          &:nth-child(1){background: url(../images/preview01-tablet_land.jpg);}
+          &:nth-child(2){background: url(../images/preview02-tablet_land.jpg);}
+          &:nth-child(3){background: url(../images/preview03-tablet_land.jpg);}
+          &:nth-child(4){background: url(../images/preview04-tablet_land.jpg);}
+        }
+        @include responsive(tab-port){
+          width: calc(100% / 4 - 10px);
+          height: 100px;
+          &:nth-child(1){background: url(../images/preview01-tablet_port.jpg);}
+          &:nth-child(2){background: url(../images/preview02-tablet_port.jpg);}
+          &:nth-child(3){background: url(../images/preview03-tablet_port.jpg);}
+          &:nth-child(4){background: url(../images/preview04-tablet_port.jpg);}
+        }
+        @include responsive(mobile){
+          width: 22%;
+          height: 30px;
+          &:nth-child(1){background: none;}
+          &:nth-child(2){background: none;}
+          &:nth-child(3){background: none;}
+          &:nth-child(4){background: none;}
+        }
+        a{
+          display: block;
+          width: 100%;
+          height: 100%;
+          @extend %uppercase;
+          @include title;
+          font-size: 0.6rem;
+          text-align: center;
+          line-height: 30px;
+          text-indent: -9999px;
+          @include responsive(mobile){
+            text-indent: 0;
+            background-color: $bgc01;
+            color: $white;
+            border-radius: 50px;
+          }
+        }
+      }
+    }
+  }
+}
+/*------------------------- footer ---------------------------*/
+footer{
+  background: url(../images/footer.jpg) center center/ cover;
+  .footer-inner{
+    *{
+      color: $white;
+      font-size: 0.8rem;
+    }
+    @extend %m0auto_70;
+    padding: 100px 0;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    @include responsive(tab-land){width: 90%;}
+    @include responsive(tab-port){
+      width: 90%;
+      padding: 70px 0;
+    }
+    @include responsive(mobile){
+      width: 100%;
+      padding: 50px 10px;
+    }
+    &::after{
+      content: '@ Lorem ipsum dolor sit amet consectetur adipisicing elit.';
+      display: block;
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%); 
+      color: $white;
+      font-size: 0.8rem;
+      @include responsive(mobile){
+        width: 80%;
+        margin: 0 auto;
+        font-size: 0.6rem;
+      }
+    }
+    ul{
+      width: calc(20% - 30px);
+      &:first-child{width: calc(40% - 30px);}
+      @include responsive(tab-port){
+        width: calc(20% - 10px);
+      &:first-child{width: calc(40% - 10px);}
+      }
+      @include responsive(mobile){
+        &:not(:first-child){display: none;}
+        &:first-child{
+          width: 100%;
+          text-align: center;
+        }
+      }
+      &:first-child{
+        li{
+          @include responsive(mobile){&:first-child{font-size: 0.8rem;}}
+          input{
+            width: 80%;
+            padding: 15px;
+            color: $black;
+            font-weight: 500;
+            border-radius: 50px 0 0 50px;
+            @include responsive(tab-port){
+              width: 70%;
+              padding: 10px;
+            }
+            @include responsive(mobile){padding: 10px;}
+          }
+          button{
+            padding: 15px;
+            background-color: #333;
+            border: 0;
+            border-radius: 0 50px 50px 0;
+            @include responsive(tab-port){padding: 10px;}
+            @include responsive(mobile){padding: 10px;}
+            &:hover{background-color: #fc0;}
+          }
+        }
+      }
+      li{
+        @extend %uppercase;
+        &:first-child{
+          @include title;
+          font-weight: bold;
+          @include responsive(tab-port){font-size: 1rem;}
+        }
+        &:not(last-child){margin-bottom: 20px;}
+        &:not(:first-child):hover{
+          cursor: pointer;
+          color: #fc0;
+        }
+        font-weight: 500;
+        @include responsive(tab-port){font-size: 0.6rem;}
+      }
+      &:last-child{
+        li{
+          span{
+            display: inline-block;
+            border: 1px solid $white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-size: 22px;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+#back-to-top{
+  @extend %uppercase;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-weight: bold;
+  text-align: center;
+  line-height: 60px;
+  position: fixed;
+  z-index: 100;
+  right: 20px;
+  bottom: 20px;
+  color: $white;
+  opacity: 0;
+  transition: .3s;
+  background: $bgc01;
+  &.visible{opacity: 1;}
+  &:hover{background: $bgc02;}
+  @include responsive(mobile){
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 0.6rem;
+    font-weight: 500;
+  }
+}
